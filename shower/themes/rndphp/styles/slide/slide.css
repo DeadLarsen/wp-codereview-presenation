@@ -80,3 +80,7 @@
     background-size: contain;
     background-repeat: no-repeat;
 }
+
+.slide.clear::before {
+    display: none;
+}
