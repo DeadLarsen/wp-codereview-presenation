@@ -29,9 +29,79 @@
 </section>
 
 <section class="slide clear">
-    <img src="pictures/17.png" class=" cover"/>
+    <div>
+        <img src="svg/badcontroller.svg" class=" cover" style="
+    width: 80% !important;
+"/>
+    </div>
 </section>
 
+<section class="slide">
+    <h2>Что плохо</h2>
+    <ul>
+        <li class="next">Создание комметария через ключевое слово <b>NEW</b></li>
+        <li class="next">Обрабатывается форма</li>
+        <li class="next">Через $entityManager (считай ORM) происходит сохранение в БД</li>
+        <li class="next">Отправка события</li>
+        <li class="next">Редирект</li>
+    </ul>
+    <p class="next" style="
+    text-align: center;
+    font-size: 45px;
+">Полный ОтсоSOLID</p>
+</section>
+
+<section class="slide">
+    <h2>Решение</h2>
+    <ul>
+        <li class="next">Вынести в сервис</li>
+        <li class="next">Вынести в usecase</li>
+    </ul>
+</section>
+
+
+<section class="slide clear">
+    <div>
+        <img src="svg/dto1.svg" class=" cover" style="
+    width: 44% !important;
+    position: absolute;
+    left: 256px;
+"/>
+    </div>
+    <div>
+        <p style="
+    position: absolute;
+    left: 624px;
+">продолжение кода</p>
+        <img src="svg/dto2.svg" class=" cover" style="
+    width: 30% !important;
+    position: absolute;
+    left: 754px;
+"/>
+    </div>
+</section>
+
+
+<section class="slide">
+    <h2>Что плохо</h2>
+    <ul>
+        <li class="next">Геттеры и сттеры</li>
+        <li class="next">Логика</li>
+        <li class="next">Может подставить NULL в значение</li>
+    </ul>    <p class="next" style="
+    text-align: center;
+    font-size: 45px;
+">Мутабельность</p>
+</section>
+
+<section class="slide clear">
+    <h2>Решение</h2>
+    <div>
+        <img src="svg/dto-etalon.svg" class=" cover" style="
+    width: 80% !important;
+"/>
+    </div>
+</section>
 
 <!-- СЕКЦИЯ ПЕТРА-->
 <section class="slide">
@@ -337,7 +407,8 @@
     <h1>Проблемы:</h1>
     <ul>
         <li class="next">
-        Метод выполняет несколько задач: создание объекта, сохранение файла, отправку email, сохранение в базу</li>
+            Метод выполняет несколько задач: создание объекта, сохранение файла, отправку email, сохранение в базу
+        </li>
         <li class="next">Параметр `$field` не имеет типа, нет никакой валидации входных данных, отсутствует проверка на наличие необходимых ключей в массиве</li>
         <li class="next">Все ошибки бросают исключение с кодом 400 (при том, это http код), нет специфических типов исключений для разных ситуаций</li>
         <li class="next">Возврат строки 'success' не информативен (и даже не используется)</li>
@@ -574,7 +645,7 @@ class RequestFormService
 
 <!-- СЕКЦИЯ ПЕТРА-->
 <section class="slide">
-    <pre style="line-height: 1; font-size: 19px; font-weight: bold; color: #2e3191; font-family: monospace;"
+    <pre style="line-height: 1; font-size: 19px; font-weight: bold; color: #e600ff; font-family: monospace;"
          class="place">
  ______  __                                        __
 /\__  _\/\ \                                      /\ \
