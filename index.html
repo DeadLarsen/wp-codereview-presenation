@@ -10,56 +10,642 @@
 <section class="slide preview">
     <div class="lines"></div>
     <div class="stripes"></div>
-    <h1>Первый код-ревью публичный в компании Веб/Практик (Backend)</h1>
+    <h1>Первый публичный код👊ревью в Веб/Практик </h1>
+    <h1 style="
+            text-align: center;
+            margin: 47px;
+            font-size: 73px;
+            ">Ba💪kend </h1>
 </section>
 
 <section class="slide">
     <h2>О чем поговорим</h2>
     <ul>
+        <li class="next">Что такое и зачем код-ревью</li>
         <li class="next"></li>
         <li class="next"></li>
-        <li class="next"></li>
-        <li class="next"></li>
+        <li class="next">Реальные примеры</li>
     </ul>
 </section>
 
 <section class="slide clear">
-    <img src="pictures/17.png" class=" cover"/>
-</section>
-
-
-<section class="slide">
-    <h2 class="shout shrink">Кто пишет тесты?</h2>
-</section>
-
-<section class="slide">
-    <h2 class="shout shrink">У кого больше 50%?</h2>
+    <div>
+        <img src="svg/badcontroller.svg" class=" cover" style="
+    width: 80% !important;
+"/>
+    </div>
 </section>
 
 <section class="slide">
-    <h2>Почему люди не пишут тесты</h2>
+    <h2>Что плохо</h2>
     <ul>
-        <li class="next">Заблуждение, что экономия на тестах = экономии бюджета проекта</li>
-        <li class="next">Нет компетенций</li>
-        <li class="next">Лень ;)</li>
+        <li class="next">Создание комметария через ключевое слово <b>NEW</b></li>
+        <li class="next">Обрабатывается форма</li>
+        <li class="next">Через $entityManager (считай ORM) происходит сохранение в БД</li>
+        <li class="next">Отправка события</li>
+        <li class="next">Редирект</li>
+    </ul>
+    <p class="next" style="
+    text-align: center;
+    font-size: 45px;
+">Полный ОтсоSOLID</p>
+</section>
+
+<section class="slide">
+    <h2>Решение</h2>
+    <ul>
+        <li class="next">Вынести в сервис</li>
+        <li class="next">Вынести в usecase</li>
+    </ul>
+</section>
+
+
+<section class="slide clear">
+    <div>
+        <img src="svg/dto1.svg" class=" cover" style="
+    width: 44% !important;
+    position: absolute;
+    left: 256px;
+"/>
+    </div>
+    <div>
+        <p style="
+    position: absolute;
+    left: 624px;
+">продолжение кода</p>
+        <img src="svg/dto2.svg" class=" cover" style="
+    width: 30% !important;
+    position: absolute;
+    left: 754px;
+"/>
+    </div>
+</section>
+
+
+<section class="slide">
+    <h2>Что плохо</h2>
+    <ul>
+        <li class="next">Геттеры и сттеры</li>
+        <li class="next">Логика</li>
+        <li class="next">Может подставить NULL в значение</li>
+    </ul>    <p class="next" style="
+    text-align: center;
+    font-size: 45px;
+">Мутабельность</p>
+</section>
+
+<section class="slide clear">
+    <h2>Решение</h2>
+    <div>
+        <img src="svg/dto-etalon.svg" class=" cover" style="
+    width: 80% !important;
+"/>
+    </div>
+</section>
+
+<!-- СЕКЦИЯ ПЕТРА-->
+<section class="slide">
+    <h2 class="shout shrink">Секция Петра Кленкина</h2>
+</section>
+<section class="slide">
+    <h1>План</h1>
+    <ul>
+        <li class="next">Последний коммит - gge.ru</li>
+        <li class="next">Случайный недавний класс - career.gge.ru</li>
+        <li class="next">Случайный модуль</li>
+    </ul>
+</section>
+<section class="slide">
+    <h1>Последний коммит - gge.ru</h1>
+    <ul>
+        <li class="next">Смотрим код</li>
+        <li class="next">Рассматриваем ситуацию вокруг</li>
+        <li class="next">Комментируем, даем рекомендации</li>
+    </ul>
+</section>
+<section class="slide">
+        <pre style="font-weight: bold; font-family:monospace; font-size: 8px;"><code>
+    class DocumentsList extends CBitrixComponent {
+        private function getTitles(array $types): array
+        {
+            try {
+                foreach ($types as $id => $values) {
+                    $arTypeId[] = $id;
+                }
+                $items = ElementDocumentTypeTable::query()
+                    ->setSelect(['ID', 'NAME', 'CODE'])
+                    ->setFilter(['ID' => $arTypeId, '!CODE' => self::INSTRUCTION_CODE])
+                    ->fetchCollection();
+                foreach ($items as $item) {
+                    $result[self::SORT_TYPE[$item->getCode()]] = [
+                        'NAME'  => $item->getName(),
+                        'ITEMS' => $types[$item->getId()],
+                    ];
+                }
+                return $result;
+            } catch (Exception $exception) {
+                Log::channel('local')->warning(
+                    $exception->getMessage(),
+                    [
+                        'error' => $exception->getTraceAsString(),
+                    ]
+                );
+
+                return [];
+            }
+        }
+    }
+        </code></pre>
+</section>
+<section class="slide">
+    <h1>Смотрим код - Контекст</h1>
+    <ul>
+        <li class="next">Класс-битриксовый компонент</li>
+        <li class="next">Отвечает за получение неких документов</li>
+        <li class="next">Метод сортирует и обрабатывает под формат темплейта полученные документы</li>
+        <li class="next">Изменения в коммите - self::SORT_TYPE[$item->getCode()]</li>
+    </ul>
+</section>
+<section class="slide">
+    <!--        <h1>Последний коммит</h1>-->
+    <pre style="font-weight: bold; font-family:monospace; font-size: 15px;"><code>
+        private const SORT_TYPE = [
+            'regulations' => 0,
+            'templates'   => 1,
+            'perechen-dokumentov' => 2,
+        ];
+
+        </code></pre>
+</section>
+<section class="slide">
+    <h1>Вопросы по самому коммиту</h1>
+    <ul>
+        <li class="next">Что будет, если ID или CODE в БД перестанут соотвествовать self::SORT_TYPE?</li>
+        <li class="next">Что будет, если в self::SORT_TYPE не будет кода? Это поведение нас устроит?</li>
+        <li class="next">Log::channel('local')->warning - ?</li>
+    </ul>
+</section>
+<section class="slide">
+    <h1>Вопросы по проактивности и мини-рефакторингу</h1>
+    <ul>
+        <li class="next">getTitles - не самое подходящее имя для метода-запроса. Оно совсем не подходит под происходящее в теле</li>
+        <li class="next">Почему getTitles занимается мутацией входящих параметров под фильтр?</li>
+        <li class="next">Нужно ли нам ловить в try/catch блок, например, пустой ответ из БД, не ошибку?</li>
+    </ul>
+</section>
+<section class="slide">
+    <h1>Случайный недавний класс - career.gge.ru</h1>
+    <ul>
+        <li class="next">Рассматриваем ситуацию + Смотрим код</li>
+        <li class="next">Комментируем, даем рекомендации</li>
+    </ul>
+</section>
+<section class="slide">
+        <pre style="font-weight: bold; font-family:monospace; font-size: 12px;"><code>
+            class VacanciesService
+            {
+
+                private IblockVacancyRepository $iblockVacancyRepository;
+                private HeadHunterRepository $headHunterRepository;
+                private int $dateUpdate = 1;
+
+                public function __construct()
+                public function getVacancies(array $request): array
+                private function createFilter(array|null $request): array
+                public function importVacancies(): void
+                public function importAllVacancies(): void
+                private function createOrUpdateVacancies(array $vacancies): void
+                private function needUpdateOrCreate(string $publishedAt): bool
+
+            }
+        </code></pre>
+</section>
+<section class="slide">
+    <h1>Что сразу бросается в глаза - 1</h1>
+    <pre style="font-weight: bold; font-family:monospace; font-size: 12px;"><code>
+            private IblockVacancyRepository $iblockVacancyRepository;
+            private HeadHunterRepository $headHunterRepository;
+
+            public function __construct()
+            {
+                $this->iblockVacancyRepository = new IblockVacancyRepository();
+                $this->headHunterRepository = new HeadHunterRepository();
+            }
+        </code></pre>
+</section>
+
+<section class="slide">
+    <h1>Лучше внедрить зависимости и создать репозитории на уровень выше</h1>
+    <pre style="font-weight: bold; font-family:monospace; font-size: 10px;"><code>
+            private IblockVacancyRepository $iblockVacancyRepository;
+            private HeadHunterRepository $headHunterRepository;
+
+            public function __construct(
+                $iblockVacancyRepository: IblockVacancyRepository,
+                $headHunterRepository: HeadHunterRepository
+            )
+            {
+                $this->iblockVacancyRepository = $iblockVacancyRepository;
+                $this->headHunterRepository = $headHunterRepository;
+            }
+        </code></pre>
+</section>
+
+<section class="slide">
+    <h1>Что сразу бросается в глаза - 2</h1>
+    <pre style="font-weight: bold; font-family:monospace; font-size: 12px;"><code>
+                public function importVacancies(): void
+                public function importAllVacancies(): void // unused
+        </code></pre>
+</section>
+<section class="slide">
+    <h1>Что сразу бросается в глаза - 2</h1>
+    <pre style="font-weight: bold; font-family:monospace; font-size: 12px;"><code>
+            public function importVacancies(): void
+            {
+                $arVacancy = $this->headHunterRepository->getListVacancies();
+                if (count($arVacancy)) {
+                    $this->createOrUpdateVacancies($arVacancy);
+                }
+            }
+        </code></pre>
+</section>
+<section class="slide">
+    <h1>Что сразу бросается в глаза - 2</h1>
+    <pre style="font-weight: bold; font-family:monospace; font-size: 9px;"><code>
+            class ImportVacanciesCommand extends Command
+            {
+                protected function configure(): void
+                {
+                    $this->setName('vacancies:import')
+                        ->setDescription('Import vacancies from HH to Iblock');
+                }
+                protected function execute(InputInterface $input, OutputInterface $output): int
+                {
+                    $io = new SymfonyStyle($input, $output);
+                    $io->writeln('Импорт вакансий...');
+                    (new VacanciesService())->importVacancies();
+                    $io->newLine();
+                    $io->writeln('Импорт вакансий завершен.');
+                    return 0;
+                }
+            }
+        </code></pre>
+</section>
+<section class="slide">
+    <h1>Что сразу бросается в глаза - 2</h1>
+    <ul>
+        <li class="next">Хороши ли, что метод импорта вакансий ничего не возвращает наверх?</li>
+    </ul>
+</section>
+<section class="slide">
+    <img class="cover" src="images/434242.jpg">
+</section>
+<section class="slide">
+    <img class="cover" src="images/oVbhi8svVIs.jpg">
+</section>
+<section class="slide">
+    <h1>Что сразу бросается в глаза - 2</h1>
+    <ul>
+        <li class="next"><s>Хорошо ли, что метод импорта вакансий ничего не возвращает наверх?</s></li>
+        <li class="next">Потенциально опасным выглядит главный метод - createOrUpdate (upsert, который тоже ничего не возвращает, но принимает массив)</li>
+    </ul>
+</section>
+<section class="slide">
+        <pre style="font-weight: bold; font-family:monospace; font-size: 8px;"><code>
+    private function createOrUpdateVacancies(array $vacancies): void
+    {
+        $ar = $this->iblockVacancyRepository->getIdsVacancies(['ACTIVE' => 'Y']);
+        /** @var Vacancy $vacancy  */
+        foreach ($vacancies as $vacancy) {
+            try {
+                if ($this->needUpdateOrCreate($vacancy['published_at'])) {
+                    $vacancyDetail = $this->headHunterRepository->getDetailVacancy($vacancy['id']);
+                    if (isset($ar[$vacancyDetail->xmlId])) {
+                        $this->iblockVacancyRepository->updateVacancy($ar[$vacancyDetail->xmlId], $vacancyDetail);
+                        unset($ar[$vacancyDetail->xmlId]);
+                    } else {
+                        $this->iblockVacancyRepository->createVacancy($vacancyDetail);
+                    }
+                } else {
+                    unset($ar[$vacancy['id']]);
+                }
+            } catch (ArgumentException | SystemException $exception) {
+                $message = sprintf('Не удалось обновить\создать вакансию : %s. Ошибка : %s', $vacancy->xmlId, $exception->getMessage());
+                Log::channel('local')->error($message);
+            }
+        }
+        $this->iblockVacancyRepository->deactivateVacancies($ar);
+    }
+        </code></pre>
+</section>
+<section class="slide">
+    <img class="cover" src="images/0QIMbuLSOg8.jpg">
+</section>
+<section class="slide">
+    <img class="cover" src="images/HPeW9X3gCwQ.jpg">
+</section>
+<section class="slide">
+    <img class="cover" src="images/HmFmfy0bRD0.jpg">
+</section>
+
+<!-- СЕКЦИЯ ПЕТРА-->
+
+
+<!-- СЕКЦИЯ СЕРОГО-->
+<section class="slide">
+    <h2 class="shout shrink">Секция Сергея Волошина</h2>
+</section>
+
+<section class="slide">
+    <h1 style="
+    position: absolute;
+    margin-left: 500px;
+">Наш красивый метод</h1>
+    <pre style="font-weight: bold; font-family:monospace; font-size: 8px;"><code style="
+    margin-top: -50px;
+">
+    public function sendRequestForm($field, ?array $file): string
+    {
+        $object = Element::createObject();
+        $newElement = $object->setName($field['name'])
+            ->setCity($field['city'])
+            ->setEmail($field['email'])
+
+        $fid = null;
+        if (is_array($file)) {
+            $fid = CFile::SaveFile($file, '/file/');
+            if ((int)$fid <= 0) {
+                throw new Exception('Не удалось сохранить файл', 400);
+            }
+            $newElement->setFile($fid);
+        }
+
+        $addResult = $newElement->save();
+
+        $arEventFields = [
+            'NAME'                    => $field['name'],
+            'CITY'                    => $field['city'],
+            'EMAIL'                   => $field['email'],
+            'FILE'                    => $fid,
+        ];
+
+        $successMailSend = CEvent::Send('EDUCATIONAL_PROJECTS', 's1', $arEventFields);
+        if (!$successMailSend) {
+            throw new Exception('Ошибка при отправке письма', 400);
+        }
+
+        if (!$addResult->isSuccess()) {
+            throw new Exception('Не удалось сохранить', 400);
+        }
+        return 'success';
+    }
+        </code></pre>
+</section>
+
+<section class="slide">
+    <h1>Проблемы:</h1>
+    <ul>
+        <li class="next">
+            Метод выполняет несколько задач: создание объекта, сохранение файла, отправку email, сохранение в базу
+        </li>
+        <li class="next">Параметр `$field` не имеет типа, нет никакой валидации входных данных, отсутствует проверка на наличие необходимых ключей в массиве</li>
+        <li class="next">Все ошибки бросают исключение с кодом 400 (при том, это http код), нет специфических типов исключений для разных ситуаций</li>
+        <li class="next">Возврат строки 'success' не информативен (и даже не используется)</li>
     </ul>
 </section>
 
 <section class="slide">
-    <h2>Для чего нужны автотесты</h2>
+    <h1>Неинформативные имена переменных</h1>
     <ul>
-        <li class="next">Обеспечение качества кода</li>
-        <li class="next">Экономия времени и ресурсов</li>
-        <li class="next">Уверенность при изменениях</li>
-        <li class="next">Поддержание стабильности и надежности</li>
-        <li class="next">Упрощение поиска ошибок</li>
-        <li class="next">Повышение производительности команды</li>
+        <li class="next">неясное сокращение `$fid`</li>
+        <li class="next">использование "венгерской нотации" `$arEventFields`</li>
+        <li class="next">слишком общее название `$field`</li>
     </ul>
+</section>
+
+<section class="slide">
+    <h1>Давайте попробуем сделать красиво</h1>
+    <h3>Я предлагаю следующие улучшения для данного кода:</h3>
+    <ol>
+        <li class="next">Извлечение методов для разделения логики</li>
+        <li class="next">Создание DTO класса для входных данных</li>
+        <li class="next">Улучшение именования переменных</li>
+        <li class="next">Добавление строгой типизации</li>
+        <li class="next">Вынесение констант</li>
+    </ol>
+</section>
+
+<section class="slide">
+    <h1 style="
+    position: absolute;
+    margin-left: 500px;
+">Делаем DTO</h1>
+    <pre style="font-weight: bold; font-family:monospace; font-size: 8px;"><code>
+    final class RequestDTO
+    {
+        public function __construct(
+            public readonly string $name,
+            public readonly string $city,
+            public readonly string $email,
+            public readonly ?array $file = null
+        ) {}
+
+        public static function fromArray(array $fields): self
+        {
+            return new self(
+                name: $fields['name'],
+                city: $fields['city'],
+                email: $fields['email'],
+            );
+        }
+
+        public function toEventFields(?int $fileId = null): array
+        {
+            return [
+                'NAME' => $this->name,
+                'CITY' => $this->city,
+                'EMAIL' => $this->email,
+                'FILE' => $fileId,
+            ];
+        }
+    }
+        </code></pre>
+</section>
+
+<section class="slide">
+    <h1>Будущая структура</h1>
+    <p>Накидываем примерную структуру класса. Сначала разнесем методы, далее пройдемся по существующему коду, посмотрим, какие есть проблемы.</p>
+</section>
+<section class="slide">
+    <h1 style="
+    position: absolute;
+    margin-left: 500px;
+">Будущая структура</h1>
+    <pre style="font-weight: bold; font-family:monospace; font-size: 8px;"><code style="
+    margin-top: -50px;
+">
+
+class RequestFormService
+{
+    // выносим строковые данные в константы
+    private const FILES_UPLOAD_DIR = '/files/';
+    private const EVENT_TYPE = 'FORMS';
+    private const SITE_ID = 's1';
+
+    public function hanleRequestForm(array $fields, ?array $file): string
+    {
+        // основной метод, который вызывается в контроллере
+    }
+
+    private function createRequestObject(RequestDTO $request): object
+    {
+        // создание объекта элемента
+    }
+
+    private function processFile(?array $file): ?int
+    {
+        // сохранение файла
+    }
+
+    private function saveElement(object $element): int
+    {
+        // сохранение элемента
+    }
+
+    private function sendNotification(RequestDTO $request, ?int $fileId): void
+    {
+        // отправка уведомления
+    }
+}
+        </code></pre>
+</section>
+
+<section class="slide">
+    <h1>Основной метод handleRequestForm</h1>
+    <p>В этом методе не хватает обработки ошибок. Контроллер не принимает от метода никакие значения.</p>
+    <p>Есть только общий блок try/catch, который перехватывает глобальный Exception.</p>
+    <p>Оставим обработку ошибок вне скобок, это отдельная тема для разговора. Но не менее важная.</p>
+    <pre style="font-weight: bold; font-family:monospace; font-size: 8px;"><code>
+
+    public function hanleRequestForm(array $fields, ?array $file): string
+    {
+        // DTO желательно формировать до вызова метода и передавать именно его, а не массив
+        $request = RequestDTO::fromArray($fields);
+
+        // создаем объект
+        $element = $this->createRequestObject($request);
+
+        // сохраняем файл
+        $fileId = $this->processFile($file);
+        if ($fileId !== null) {
+            $element->setFile($fileId);
+        }
+
+        // сохраняем в базу
+        $this->saveElement($element);
+        // отправляем на почту
+        $this->sendNotification($request, $fileId);
+
+        // не будем в примере описывать ошибки
+        return true;
+    }
+        </code></pre>
+</section>
+
+<section class="slide">
+    <h1>Метод createRequestObject</h1>
+    <p>Создание объекта элемента. На вход передаем типизированные значения.</p>
+    <pre style="font-weight: bold; font-family:monospace; font-size: 8px;"><code>
+    private function createRequestObject(RequestDTO $dto): object
+    {
+        $object = Element::createObject();
+
+        return $object->setName($dto->name)
+            ->setCity($dto->city)
+            ->setEmail($dto->email)
+    }
+        </code></pre>
+</section>
+
+<section class="slide">
+    <h1>Метод processFile</h1>
+    <p>Метод сохранения файла. Используем ранний возврат, если файл не передан.</p>
+    <pre style="font-weight: bold; font-family:monospace; font-size: 8px;"><code>
+    private function processFile(?array $file): ?int
+    {
+        // ранний возврат
+        if (!is_array($file)) {
+            return null;
+        }
+
+        $fileId = CFile::SaveFile($file, self::FILES_UPLOAD_DIR);
+        if (!$fileId) {
+            return null;
+        }
+
+        return $fileId;
+    }
+        </code></pre>
+</section>
+
+<section class="slide">
+    <p>Сохранение элемента в базу. Здесь также нет обработки ошибок, вся надежда на глобальный try/catch в контроллере</p>
+    <pre style="font-weight: bold; font-family:monospace; font-size: 8px;"><code>
+    private function saveElement(object $element): int
+    {
+        $result = $element->save();
+        if (!$result->isSuccess()) {
+            throw new Exception('Не удалось сохранить', 400);
+        }
+
+        return $element->getId()
+    }
+        </code></pre>
 </section>
 
 
 <section class="slide">
-    <pre style="line-height: 1; font-size: 19px; font-weight: bold; color: #2e3191; font-family: monospace;"
+    <p>В методе отправки сообщения используется CEvent::Send, который не гарантирует отправку, он только записывает сообщение в базу.</p>
+
+    <p>Поэтому исключение тут бесполезно, по большей части.</p>
+    <pre style="font-weight: bold; font-family:monospace; font-size: 8px;"><code>
+    private function sendNotification(EducationRequestDTO $request, ?int $fileId): void
+    {
+        $success = CEvent::Send(
+            self::EVENT_TYPE,
+            self::SITE_ID,
+            $request->toEventFields($fileId)
+        );
+
+        if (!$success) {
+            throw new Exception('Ошибка при отправке письма', 400);
+        }
+    }
+        </code></pre>
+</section>
+
+<section class="slide">
+    <h1>Чего мы добились</h1>
+    <ul>
+        <li class="next">Легче вносить изменения в отдельные части функциональности</li>
+        <li class="next">Проще находить и исправлять ошибки</li>
+        <li class="next">Проще добавлять новую функциональность</li>
+        <li class="next">Валидация входных данных через DTO</li>
+        <li class="next">В базу данных теперь передается типизированные данные</li>
+        <li class="next">Понятные имена методов и переменных</li>
+        <li class="next">Логическая структуризация кода</li>
+    </ul>
+    <p>Но... Мы всего лишь раскидали код по методам. Основной hanleRequestForm всё еще нарушает принцип единой ответственности. Класс тоже, в общем то.</p>
+    <p>Конечно, можно пойти дальше, раскидать логику по отдельным классам, сделать цепочку ответственности, чтобы соблюсти SRP.</p>
+    <p>Но это уже будет программирование ради программирования. Для такого простого функционала, мне кажется, овер-избыточно.
+    </p>
+</section>
+
+
+<!-- СЕКЦИЯ ПЕТРА-->
+<section class="slide">
+    <pre style="line-height: 1; font-size: 19px; font-weight: bold; color: #e600ff; font-family: monospace;"
          class="place">
  ______  __                                        __
 /\__  _\/\ \                                      /\ \
